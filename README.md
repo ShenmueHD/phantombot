@@ -14,6 +14,7 @@ Additional functionality is enabled through the use of third-party modules.
 * [PhantomBot Blog](https://blog.phantombot.tv)
 * [Follow PhantomBot on Twitter](https://www.twitter.com/PhantomBotApp/ "PhantomBot Twitter")
 
+* [Follow Shenmue on Twitter](https://www.twitter.com/ShenmueTv "Shenmue's Twitter")
 
 
 ## Screenshots
