@@ -7,7 +7,6 @@
     var selfMessageCount = 0,
         otherMessageCount = 0,
         lastRandom = -1,
-        jailTimeout = $.getSetIniDbNumber('settings', 'flirtTimeoutTime', 60),
         lang,
         rand;
 
@@ -37,18 +36,8 @@
         do {
             rand = $.randRange(1, otherMessageCount);
         } while (rand == lastRandom);
-        lang = $.lang.get('flirtcommand.other.' + rand, $.resolveRank(sender), $.resolveRank(user), jailTimeout, $.botName);
-        if (lang.startsWith('(jail)')) {
-            lang = $.replace(lang, '(jail)', '');
-            $.say(lang);
-            if (!$.isMod(sender) && jailTimeout > 0) {
-                setTimeout(function () {
-                    $.say('.timeout ' + sender + ' ' + jailTimeout);
-                }, 1500);
-            }
-        } else {
-            $.say(lang);
-        }
+        lang = $.lang.get('flirtcommand.other.' + rand, $.resolveRank(sender), $.resolveRank(user), $.botName);
+		$.say(lang);
         lastRandom = rand;
     };
 
@@ -70,20 +59,6 @@
                 flirt(sender, args[0]);
             }
         }
-
-        /**
-         * @commandpath jailtimeouttime [amount in seconds] - Set the timeout time for jail time on the flirt command.
-         */
-        if (command.equalsIgnoreCase('jailtimeouttime')) {
-            if (args.length == 0) {
-                $.say($.whisperPrefix(sender) + $.lang.get('flirtcommand.jail.timeout.usage'));
-                return;
-            }
-
-            jailTimeout = args[0];
-            $.inidb.set('settings', 'flirtTimeoutTime', args[0]);
-            $.say($.whisperPrefix(sender) + $.lang.get('flirtcommand.jail.timeout.set', jailTimeout));
-        }
     });
 
     /**
@@ -95,7 +70,6 @@
                loadResponses();
             }
             $.registerChatCommand('./games/flirtCommand.js', 'flirt', 7);
-            $.registerChatCommand('./games/flirtCommand.js', 'jailtimeouttime', 1);
         }
     });
 })();
